@@ -1,0 +1,36 @@
+name: CrossBorderCore
+version: '1.0.0'
+main: com.alphastudio.CrossBorderCore.CrossBorderCore
+api-version: '1.21'
+folia-supported: true
+author: alphaStudio (t7o)
+description: Local-world and cross-server border transfer plugin for sharded Minecraft worlds
+
+commands:
+  crossbordercore:
+    description: Main command for CrossBorder Core
+    usage: /<command> [reload|list|info|help]
+    aliases: [cbc, cborder, cbcore]
+    permission: crossbordercore.use
+
+permissions:
+  crossbordercore.use:
+    description: Allows use of basic CrossBorder Core commands
+    default: true
+  crossbordercore.reload:
+    description: Allows reloading the plugin configuration
+    default: op
+  crossbordercore.list:
+    description: Allows listing all configured borders
+    default: op
+  crossbordercore.info:
+    description: Allows viewing plugin information
+    default: op
+  crossbordercore.*:
+    description: Grants all CrossBorder Core permissions
+    default: op
+    children:
+      crossbordercore.use: true
+      crossbordercore.reload: true
+      crossbordercore.list: true
+      crossbordercore.info: true

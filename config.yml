@@ -1,0 +1,230 @@
+# CrossBorder Core Configuration
+# Local-world mode for a single Folia/Paper backend.
+# Remote Velocity/BungeeCord routing remains available for future migration.
+
+# Entity teleportation settings
+entity-teleportation:
+  # Enable/disable entity teleportation with players
+  enabled: true
+
+  # Teleport vehicles (minecarts, boats, horses player is riding)
+  # NOTE: This includes passengers in the vehicle (villagers in boats, etc.)
+  teleport-vehicles: true
+
+  # Teleport leashed mobs (mobs on leads held by player)
+  teleport-leashed-mobs: true
+
+  # Teleport nearby villagers and allays (within distance)
+  # Useful for transporting villagers in boats or just walking with them
+  teleport-nearby-villagers: true
+
+  # Distance to check for nearby entities (in blocks)
+  # Default: 3 blocks (recommended for stable entity removal)
+  # WARNING: Increasing this range may result in entity removal timing issues,
+  #          potentially causing entity duplication when crossing borders quickly.
+  #          Higher values give Paper less time to complete async entity removal.
+  #          Server admins may adjust this at their own risk.
+  nearby-entity-distance: 3
+
+  # Maximum number of entities to teleport per player (prevents abuse)
+  max-entities: 10
+
+  # Require mobs to be leashed to teleport (if false, all nearby mobs will teleport based on filters below)
+  mobs_must_be_leashed: false
+
+  # Mob filtering configuration
+  mobs:
+    # Exclusion mode (true = teleport ALL except list, false = teleport ONLY list)
+    exclusion: true
+    # List of mob types (see: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html)
+    # Examples: COW, SHEEP, ZOMBIE, CREEPER, VILLAGER, HORSE, etc.
+    # If exclusion=true: These mobs will NOT be teleported (blacklist)
+    # If exclusion=false: ONLY these mobs will be teleported (whitelist)
+    list:
+      - WITHER
+      - ENDER_DRAGON
+      # Add more entities to exclude/include here
+
+  # Vehicle filtering configuration
+  vehicles:
+    # Exclusion mode (true = teleport ALL vehicles except list, false = teleport ONLY list)
+    exclusion: true
+    # List of vehicle types
+    # Examples: MINECART, BOAT, CHEST_MINECART, HOPPER_MINECART, FURNACE_MINECART, HORSE, DONKEY, MULE, etc.
+    # If exclusion=true: These vehicles will NOT be teleported (blacklist)
+    # If exclusion=false: ONLY these vehicles will be teleported (whitelist)
+    list:
+      # Example: Exclude furnace minecarts
+      # - FURNACE_MINECART
+      # Add more vehicles to exclude/include here
+
+# Redis is optional for local-world transfers.
+# Enable it later when one or more borders target a remote Velocity/BungeeCord backend.
+redis:
+  enabled: false
+  host: localhost
+  port: 6379
+  password: ""  # Leave empty if no password is set
+  database: 0   # Redis database number (0-15, use different DB per plugin to avoid conflicts)
+  key-prefix: "crossservertp:"  # Prefix for all Redis keys (prevents conflicts with other plugins)
+  async-threads: 2             # Dedicated Redis I/O workers; never execute Redis calls on region threads
+  async-queue-capacity: 256    # Fail closed if Redis work backs up beyond this limit
+  status-cache-ttl-ms: 3000    # Maximum age of cached target-server health before border crossing is blocked
+  transfer-timeout-ms: 3000    # Release the player back to the source shard if persistence is too slow
+
+  # Connection pool settings
+  pool:
+    max-total: 8      # Maximum number of connections in pool
+    max-idle: 8       # Maximum idle connections
+    min-idle: 1       # Minimum idle connections
+
+  # Timeout settings (in milliseconds)
+  timeout:
+    connection: 2000  # Connection timeout
+    socket: 2000      # Socket read/write timeout
+
+  # Reconnection settings for network issues
+  reconnect:
+    # Maximum number of retry attempts for Redis operations
+    max-retries: 2
+    # Initial retry delay in milliseconds (doubles with each retry)
+    initial-delay-ms: 250
+
+# Server identity. Used only when Redis-backed remote routing is enabled later.
+server-name: "local-smp"
+
+# How often to check player positions and show particles (in ticks, 20 ticks = 1 second)
+# This setting is fixed at 20 ticks (1 second) internally to prevent lag
+# You can adjust particle-view-distance below instead
+check-interval-ticks: 20
+
+# Legacy emergency behavior. Keep disabled in production: enabling this allows the
+# plugin to clear blocks around an arrival point. Use protected, pregenerated seams instead.
+unsafe-destination-block-clearing:
+  enabled: false
+
+# Protect external teleports from RTP plugins or admin /tp commands landing inside
+# the CrossBorder trigger strip or directly against a Vanilla WorldBorder.
+# This does not affect CrossBorderCore's own border transfers.
+external-teleport-border-safety:
+  enabled: true
+  margin-blocks: 8
+
+# How far away from a border players can see the particle barrier (in blocks)
+particle-view-distance: 50
+
+# Particle type to use for the border barrier
+# Default: FLAME (safe for all Minecraft versions 1.18+)
+#
+# Compatible particles for all versions:
+#   - FLAME (fire particles, recommended default)
+#   - REDSTONE (red dust particles)
+#   - CRIT (critical hit particles)
+#   - ENCHANTMENT_TABLE (enchanting symbols)
+#   - END_ROD (white particles)
+#   - PORTAL (purple portal particles)
+#   - VILLAGER_ANGRY (angry villager particles)
+#
+# Minecraft 1.20.5+ only:
+#   - SCRAPE (copper scrape particles from Trial Chambers)
+#
+# DO NOT USE "BARRIER" - it does not work as a particle effect and is not visually pleasing
+#
+# For a full list of particles, see: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html
+particle-type: FLAME
+
+# Border configurations for the current local-world layout.
+#
+# Local-world route:
+# - Omit target-server.
+# - Set target-world to world, world2, world3, or world4.
+#
+# Remote-server route for a future migration:
+# - Add target-server with the exact Velocity/BungeeCord backend name.
+# - Keep target-world as the Bukkit world name on that backend.
+#
+# Layout:
+#
+#                 world2
+#                  NORTH
+#                    |
+#   world3 WEST <- world -> EAST world4
+#
+# Each world has a 30000 x 30000 WorldBorder and keeps its global coordinates:
+# - world:  X=0..30000,      Z=0..30000
+# - world2: X=0..30000,      Z=-30000..0
+# - world3: X=-30000..0,     Z=0..30000
+# - world4: X=30000..60000,  Z=0..30000
+# Paired routes use the same seam coordinate so coordinates continue naturally.
+borders:
+  world-north-to-world2:
+    world: world
+    side: NORTH
+    coordinate: 0
+    target-world: world2
+    target-side: SOUTH
+    target-coordinate: 0
+    target-offset: 5
+    show-particles: true
+
+  world-west-to-world3:
+    world: world
+    side: WEST
+    coordinate: 0
+    target-world: world3
+    target-side: EAST
+    target-coordinate: 0
+    target-offset: 5
+    show-particles: true
+
+  world-east-to-world4:
+    world: world
+    side: EAST
+    coordinate: 30000
+    target-world: world4
+    target-side: WEST
+    target-coordinate: 30000
+    target-offset: 5
+    show-particles: true
+
+  world2-south-to-world:
+    world: world2
+    side: SOUTH
+    coordinate: 0
+    target-world: world
+    target-side: NORTH
+    target-coordinate: 0
+    target-offset: 5
+    show-particles: true
+
+  world3-east-to-world:
+    world: world3
+    side: EAST
+    coordinate: 0
+    target-world: world
+    target-side: WEST
+    target-coordinate: 0
+    target-offset: 5
+    show-particles: true
+
+  world4-west-to-world:
+    world: world4
+    side: WEST
+    coordinate: 30000
+    target-world: world
+    target-side: EAST
+    target-coordinate: 30000
+    target-offset: 5
+    show-particles: true
+
+# Configuration notes:
+# - Local worlds must already be loaded by Bukkit before a player crosses a border
+# - Define both directions explicitly if players need to travel back
+# - The target-side/target-coordinate pair tells CrossServerTP exactly which border to land at
+# - Players arrive 5 blocks inside the paired target border by default
+# - A 2-second cooldown prevents rapid back-and-forth teleports
+
+# Customizable messages
+messages:
+  destination-unavailable: "&cThe destination world is currently unavailable. Please try again later."
+  server-offline: "&cThe destination server is currently offline. Please try again later."

@@ -1,0 +1,65 @@
+# CrossServerTP sample config - smp_02
+# Official paired layout:
+#   smp_02 center-x = 90000.5, center-z = 0.5, radius = 30000
+#   X range = 60000.5 -> 120000.5
+#   WEST border at X=60000 sends players back to smp_01
+
+server-name: "smp_02"
+
+redis:
+  enabled: true
+  host: "5.9.152.50"
+  port: 6379
+  password: ""
+  database: 0
+  key-prefix: "crossservertp:"
+  async-threads: 2
+  async-queue-capacity: 256
+  status-cache-ttl-ms: 3000
+  transfer-timeout-ms: 3000
+  pool:
+    max-total: 8
+    max-idle: 8
+    min-idle: 1
+  timeout:
+    connection: 2000
+  reconnect:
+    max-retries: 2
+    initial-delay-ms: 250
+
+check-interval-ticks: 20
+unsafe-destination-block-clearing:
+  enabled: false
+particle-view-distance: 50
+particle-type: FLAME
+
+borders:
+  - world: "world"
+    side: "WEST"
+    coordinate: 60000
+    target-server: "smp_01"
+    target-world: "world"
+    target-side: "EAST"
+    target-coordinate: 60000
+    target-offset: 5
+    show-particles: true
+
+entity-teleportation:
+  enabled: true
+  teleport-vehicles: true
+  teleport-leashed-mobs: true
+  teleport-nearby-villagers: true
+  nearby-entity-distance: 3
+  max-entities: 10
+  mobs_must_be_leashed: false
+  mobs:
+    exclusion: true
+    list:
+      - WITHER
+      - ENDER_DRAGON
+  vehicles:
+    exclusion: true
+    list: []
+
+messages:
+  server-offline: "&cThe destination server is currently offline. Please try again later."

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: redis.clients.jedis
+Bnd-LastModified: 1773632770266
+Build-Jdk-Spec: 21
+Bundle-Description: Jedis is a blazingly small and sane Redis java clien
+ t.
+Bundle-License: https://github.com/redis/jedis/blob/master/LICENSE
+Bundle-ManifestVersion: 2
+Bundle-Name: Jedis
+Bundle-SymbolicName: redis.clients.jedis
+Bundle-Version: 5.1.0
+Created-By: Apache Maven Bundle Plugin 5.1.9
+Tool: Bnd-6.3.1.202206071316
