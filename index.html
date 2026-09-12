@@ -3,142 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrossServer-Systeam | Enterprise Server Management</title>
+    <title>CrossServer-Systeam - Enterprise Server Management</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Loader -->
-    <div class="loader">
-        <div class="spinner"></div>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
+            <div class="logo">
                 <i class="fas fa-server"></i>
                 <span>CrossServer</span>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#pricing" class="nav-link">Pricing</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li><a href="https://github.com/hamzasdsew/CrossServer-Systeam" class="nav-link btn-github" target="_blank">GitHub</a></li>
-            </ul>
-            <div class="hamburger">
+            <div class="nav-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://github.com/hamzasdsew/CrossServer-Systeam" class="btn-github" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">CrossServer<span class="highlight">-Systeam</span></h1>
-            <p class="hero-subtitle">Enterprise-Grade Server Management System</p>
-            <p class="hero-description">Powerful, scalable Java-based solution for cross-platform system administration and real-time monitoring</p>
-            <div class="hero-buttons">
-                <a href="#features" class="btn btn-primary">Explore Now</a>
-                <a href="https://github.com/hamzasdsew/CrossServer-Systeam" class="btn btn-secondary" target="_blank">
-                    <i class="fab fa-github"></i> View on GitHub
-                </a>
-            </div>
-        </div>
-        <div class="hero-bg">
-            <div class="floating-box"></div>
-            <div class="floating-box box-2"></div>
-            <div class="floating-box box-3"></div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
+        <div class="stars"></div>
         <div class="container">
-            <h2>About CrossServer-Systeam</h2>
-            <p>A revolutionary server management platform designed for modern enterprises. Built with Java, optimized for performance, and engineered for scale.</p>
-            <div class="stats">
-                <div class="stat">
-                    <h3>100%</h3>
-                    <p>Java Built</p>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">CrossServer</span>
+                    <span class="gradient-text-2">Systeam</span>
+                </h1>
+                <p class="hero-subtitle">Enterprise Server Management System</p>
+                <p class="hero-desc">Advanced monitoring, automation, and control for your infrastructure</p>
+                <div class="hero-buttons">
+                    <a href="#features" class="btn btn-primary">Get Started</a>
+                    <a href="https://github.com/hamzasdsew/CrossServer-Systeam" class="btn btn-secondary" target="_blank">View on GitHub</a>
                 </div>
-                <div class="stat">
-                    <h3>∞</h3>
-                    <p>Scalability</p>
-                </div>
-                <div class="stat">
-                    <h3>24/7</h3>
-                    <p>Support</p>
-                </div>
-                <div class="stat">
-                    <h3>99.9%</h3>
-                    <p>Uptime</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Java Built</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Monitoring</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <canvas id="canvas"></canvas>
     </section>
 
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <h2>Premium Features</h2>
+            <div class="section-header">
+                <h2>Amazing Features</h2>
+                <p>Everything you need for enterprise server management</p>
+            </div>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="card-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>Enterprise Security</h3>
-                    <p>Military-grade encryption with advanced authentication protocols. Your infrastructure stays protected 24/7.</p>
-                    <a href="#" class="learn-more">Learn More →</a>
+                    <p>Military-grade encryption and advanced authentication for your infrastructure</p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="card-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                     <h3>Real-Time Analytics</h3>
-                    <p>Comprehensive dashboards with instant alerts. Monitor every metric with precision and act faster.</p>
-                    <a href="#" class="learn-more">Learn More →</a>
+                    <p>Comprehensive dashboards with instant metrics and performance insights</p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="card-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
                     <h3>Cross-Platform</h3>
-                    <p>Manage Linux, Windows, and cloud servers from one unified interface. Universal control.</p>
-                    <a href="#" class="learn-more">Learn More →</a>
+                    <p>Manage Linux, Windows, and cloud servers from one unified interface</p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="card-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-cogs"></i></div>
                     <h3>Automation</h3>
-                    <p>Intelligent task automation reduces manual work. Scale your operations effortlessly.</p>
-                    <a href="#" class="learn-more">Learn More →</a>
+                    <p>Intelligent task automation reduces manual work and increases efficiency</p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="card-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
                     <h3>Cloud Ready</h3>
-                    <p>Seamless cloud integration. Deploy on AWS, Azure, GCP or on-premise with ease.</p>
-                    <a href="#" class="learn-more">Learn More →</a>
+                    <p>Deploy on AWS, Azure, GCP or on-premise with seamless integration</p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="card-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
                     <h3>Developer API</h3>
-                    <p>Clean, well-documented RESTful API. Extend functionality with custom integrations.</p>
-                    <a href="#" class="learn-more">Learn More →</a>
+                    <p>RESTful API with complete documentation for custom integrations</p>
                 </div>
             </div>
         </div>
@@ -147,63 +109,66 @@
     <!-- Pricing Section -->
     <section id="pricing" class="pricing">
         <div class="container">
-            <h2>Simple Pricing</h2>
-            <p class="pricing-subtitle">Choose the plan that fits your needs</p>
+            <div class="section-header">
+                <h2>Simple Pricing</h2>
+                <p>Choose the perfect plan for your business</p>
+            </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
-                    <h3>Starter</h3>
-                    <div class="price">Free</div>
-                    <p class="price-desc">For getting started</p>
+                    <div class="price-header">
+                        <h3>Starter</h3>
+                    </div>
+                    <div class="price-amount">
+                        <span class="currency">$</span>
+                        <span class="number">0</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="price-desc">Perfect for getting started</p>
                     <ul class="price-features">
                         <li><i class="fas fa-check"></i> Up to 5 servers</li>
                         <li><i class="fas fa-check"></i> Basic monitoring</li>
                         <li><i class="fas fa-check"></i> Community support</li>
-                        <li class="disabled"><i class="fas fa-times"></i> Advanced analytics</li>
-                        <li class="disabled"><i class="fas fa-times"></i> 24/7 support</li>
+                        <li><i class="fas fa-times"></i> Advanced analytics</li>
                     </ul>
-                    <button class="btn btn-outline">Get Started</button>
+                    <button class="btn btn-secondary">Get Started</button>
                 </div>
 
                 <div class="pricing-card featured">
                     <div class="badge">Most Popular</div>
-                    <h3>Professional</h3>
-                    <div class="price">$99<span>/mo</span></div>
+                    <div class="price-header">
+                        <h3>Professional</h3>
+                    </div>
+                    <div class="price-amount">
+                        <span class="currency">$</span>
+                        <span class="number">99</span>
+                        <span class="period">/month</span>
+                    </div>
                     <p class="price-desc">For growing businesses</p>
                     <ul class="price-features">
                         <li><i class="fas fa-check"></i> Unlimited servers</li>
                         <li><i class="fas fa-check"></i> Advanced analytics</li>
                         <li><i class="fas fa-check"></i> API access</li>
                         <li><i class="fas fa-check"></i> Email support</li>
-                        <li class="disabled"><i class="fas fa-times"></i> 24/7 phone support</li>
                     </ul>
-                    <button class="btn btn-primary">Subscribe Now</button>
+                    <button class="btn btn-primary">Start Free Trial</button>
                 </div>
 
                 <div class="pricing-card">
-                    <h3>Enterprise</h3>
-                    <div class="price">Custom</div>
+                    <div class="price-header">
+                        <h3>Enterprise</h3>
+                    </div>
+                    <div class="price-amount">
+                        <span class="currency">Custom</span>
+                    </div>
                     <p class="price-desc">For large organizations</p>
                     <ul class="price-features">
                         <li><i class="fas fa-check"></i> Everything in Pro</li>
                         <li><i class="fas fa-check"></i> Custom integrations</li>
-                        <li><i class="fas fa-check"></i> Dedicated account manager</li>
-                        <li><i class="fas fa-check"></i> 24/7 phone support</li>
+                        <li><i class="fas fa-check"></i> Dedicated support</li>
                         <li><i class="fas fa-check"></i> SLA guarantee</li>
                     </ul>
-                    <button class="btn btn-outline">Contact Sales</button>
+                    <button class="btn btn-secondary">Contact Sales</button>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>Ready to Transform Your Infrastructure?</h2>
-            <p>Join hundreds of enterprises using CrossServer-Systeam</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Get Started Free</a>
-                <a href="https://github.com/hamzasdsew/CrossServer-Systeam" class="btn btn-secondary" target="_blank">GitHub Repo</a>
             </div>
         </div>
     </section>
@@ -211,42 +176,36 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Get in Touch</h2>
+            <div class="section-header">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you</p>
+            </div>
             <div class="contact-wrapper">
                 <div class="contact-info">
-                    <h3>Contact Information</h3>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h4>Email</h4>
-                            <p>contact@crossserver.io</p>
+                            <a href="mailto:info@crossserver.io">info@crossserver.io</a>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+1 (800) SERVER-1</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
+                        <i class="fas fa-github"></i>
                         <div>
                             <h4>GitHub</h4>
                             <a href="https://github.com/hamzasdsew/CrossServer-Systeam" target="_blank">View Repository</a>
                         </div>
                     </div>
-                    <div class="social-links">
-                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
                 <form class="contact-form" id="contactForm">
                     <input type="text" placeholder="Your Name" required>
                     <input type="email" placeholder="Your Email" required>
-                    <input type="text" placeholder="Subject" required>
-                    <textarea placeholder="Message..." rows="6" required></textarea>
+                    <textarea placeholder="Your Message..." rows="5" required></textarea>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
             </div>
@@ -256,41 +215,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>CrossServer-Systeam</h4>
-                    <p>Enterprise server management made simple.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Status</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CrossServer-Systeam. All rights reserved.</p>
-            </div>
+            <p>&copy; 2024 CrossServer-Systeam. All rights reserved.</p>
         </div>
     </footer>
 
