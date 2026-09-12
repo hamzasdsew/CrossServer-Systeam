@@ -1,12 +1,83 @@
-// Wait for page load
-window.addEventListener('load', () => {
-    const loader = document.querySelector('.loader');
-    if (loader) {
-        loader.style.display = 'none';
+// Particle Canvas Animation
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+        this.opacity = Math.random() * 0.5 + 0.2;
     }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+    }
+
+    draw() {
+        ctx.fillStyle = `rgba(0, 112, 243, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    particles = [];
+    for (let i = 0; i < 50; i++) {
+        particles.push(new Particle());
+    }
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) {
+                ctx.strokeStyle = `rgba(0, 212, 255, ${0.2 * (1 - distance / 100)})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(animateParticles);
+}
+
+initParticles();
+animateParticles();
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
 });
 
-// Smooth navigation scrolling
+// Smooth Scroll Navigation
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -17,7 +88,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Active link highlighting
+// Active Link Highlighting
 window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('section[id]');
     const scrollPosition = window.scrollY + 100;
@@ -25,9 +96,9 @@ window.addEventListener('scroll', () => {
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
-        
+
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            document.querySelectorAll('.nav-link').forEach(link => {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href').slice(1) === section.id) {
                     link.classList.add('active');
@@ -37,61 +108,44 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Mobile menu
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
+// Mobile Menu Toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
 
-if (hamburger) {
-    hamburger.addEventListener('click', () => {
-        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
+        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 }
 
-// Contact form handling
+// Contact Form
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-        
-        // Validate email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         const inputs = contactForm.querySelectorAll('input, textarea');
         let valid = true;
-        
+
         inputs.forEach(input => {
             if (!input.value.trim()) {
                 valid = false;
-                input.style.borderColor = '#ff0000';
+                input.style.borderColor = '#ff006e';
             } else {
                 input.style.borderColor = '';
             }
         });
 
-        if (valid && emailRegex.test(inputs[1].value)) {
-            alert('Thank you for your message! We will get back to you soon.');
+        if (valid) {
+            alert('Thank you! Your message has been sent successfully.');
             contactForm.reset();
-            inputs.forEach(input => input.style.borderColor = '');
-        } else if (!valid) {
-            alert('Please fill in all fields');
         } else {
-            alert('Please enter a valid email address');
+            alert('Please fill in all fields');
         }
     });
 }
 
-// Add CSS for active nav link
-const style = document.createElement('style');
-style.textContent = `
-    .nav-link.active {
-        color: var(--primary);
-    }
-`;
-document.head.appendChild(style);
-
-// Intersection Observer for animations
+// Intersection Observer for Animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -106,57 +160,11 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.querySelectorAll('.feature-card, .pricing-card, .stat').forEach(el => {
+document.querySelectorAll('.feature-box, .pricing-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'all 0.6s ease-out';
     observer.observe(el);
 });
 
-// Counter animation for stats
-function animateCounter(element) {
-    const target = parseInt(element.innerText);
-    if (isNaN(target)) return;
-    
-    let current = 0;
-    const increment = target / 50;
-    
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.innerText = target;
-            clearInterval(timer);
-        } else {
-            element.innerText = Math.ceil(current);
-        }
-    }, 20);
-}
-
-// Observe stats for animation
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.stat h3').forEach(stat => {
-                if (!stat.hasAttribute('data-animated')) {
-                    animateCounter(stat);
-                    stat.setAttribute('data-animated', 'true');
-                }
-            });
-        }
-    });
-});
-
-const aboutSection = document.querySelector('.about');
-if (aboutSection) {
-    statsObserver.observe(aboutSection);
-}
-
-// Parallax effect
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero-bg');
-    if (hero) {
-        hero.style.transform = `translateY(${window.scrollY * 0.5}px)`;
-    }
-});
-
-console.log('CrossServer-Systeam - Premium Landing Page Loaded');
+console.log('🚀 CrossServer-Systeam Premium Landing Page Loaded');
